@@ -2,6 +2,18 @@ import { render, screen } from "@testing-library/react";
 import { LoginPage } from "@/components/login-page";
 import { AuthProvider } from "@/components/auth-provider";
 import { mockUseSession } from "./utils/mockSession";
+import { vi } from "vitest";
+
+const mockPush = vi.fn();
+
+vi.mock("next/navigation", () => ({
+    useRouter: () => ({ push: mockPush }),
+}));
+
+beforeEach(() => {
+    mockPush.mockClear();
+});
+
 
 describe("LoginPage", () => {
     it("renderiza campos de email e senha", () => {

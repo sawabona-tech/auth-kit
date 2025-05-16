@@ -7,10 +7,10 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   test: {
-    environment: "jsdom",
     globals: true,
+    environment: "jsdom",
     setupFiles: "./vitest.setup.ts",
-    include: ["tests/**/*.test.ts?(x)"],
+    include: ["src/tests/**/*.test.ts?(x)"],
   },
   resolve: {
     alias: {
@@ -18,3 +18,4 @@ export default defineConfig({
     },
   },
 });
+

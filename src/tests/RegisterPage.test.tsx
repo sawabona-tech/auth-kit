@@ -2,6 +2,18 @@ import { render, screen } from "@testing-library/react";
 import { RegisterPage } from "@/components/register-page";
 import { AuthProvider } from "@/components/auth-provider";
 import { mockUseSession } from "./utils/mockSession";
+import { vi } from "vitest";
+
+const mockPush = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: mockPush }),
+}));
+
+beforeEach(() => {
+  mockPush.mockClear();
+});
+
 
 describe("RegisterPage", () => {
   it("renderiza campos de nome, email e senha", () => {

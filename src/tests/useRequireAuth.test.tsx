@@ -8,6 +8,10 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
+beforeEach(() => {
+  mockPush.mockClear();
+});
+
 describe("useRequireAuth", () => {
   it("redireciona para logout se não autenticado", () => {
     mockUseSession("unauthenticated");
