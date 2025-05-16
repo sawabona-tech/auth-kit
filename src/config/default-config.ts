@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface AuthKitConfig {
   providers: ("google" | "github" | "credentials")[];
   baseUrl: string;
@@ -9,6 +11,10 @@ export interface AuthKitConfig {
   redirects?: {
     afterLogin?: string;
     afterLogout?: string;
+  };
+  validation?: {
+    register?: z.ZodSchema;
+    login?: z.ZodSchema;
   };
 }
 
@@ -24,3 +30,4 @@ export const defaultConfig: AuthKitConfig = {
     afterLogout: "/",
   },
 };
+

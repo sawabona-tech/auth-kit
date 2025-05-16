@@ -2,40 +2,34 @@
 
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuthKitConfig } from "./auth-provider";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 
-const schema = z.object({
+const defaultLoginSchema = z.object({
     email: z.string().email("Email inválido"),
     password: z.string().min(1, "Senha obrigatória"),
 });
 
-type FormData = z.infer<typeof schema>;
-
 export function LoginPage() {
-    const { redirects, theme, providers } = useAuthKitConfig();
+    const { redirects, theme, providers, validation } = useAuthKitConfig();
     const router = useRouter();
     const [authError, setAuthError] = useState("");
 
+    const schema = validation?.login ?? defaultLoginSchema;
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<FormData>({ resolver: zodResolver(schema) });
+    } = useForm({ resolver: zodResolver(schema) });
 
-    const onSubmit = async (data: FormData) => {
+    const onSubmit = async (data: z.infer<typeof schema>) => {
         setAuthError("");
-
-        const res = await signIn("credentials", {
-            redirect: false,
-            ...data,
-        });
-
+        const res = await signIn("credentials", { redirect: false, ...data });
         if (res?.ok) {
             router.push(redirects?.afterLogin || "/dashboard");
         } else {
@@ -62,36 +56,22 @@ export function LoginPage() {
                     <p className="text-muted-foreground">Acesse sua conta</p>
                 </div>
 
-                {authError && (
-                    <p className="text-sm text-red-500 text-center -mt-4">{authError}</p>
-                )}
+                {authError && <p className="text-sm text-red-500 text-center -mt-4">{authError}</p>}
 
                 <div className="space-y-4">
                     <div>
                         <Input placeholder="Email" type="email" {...register("email")} />
-                        {errors.email && (
-                            <p className="text-sm text-red-500">{errors.email.message}</p>
-                        )}
+                        {errors.email && <p className="text-sm text-red-500">{String(errors.email?.message || "")}</p>}
                     </div>
                     <div>
-                        <Input
-                            placeholder="Senha"
-                            type="password"
-                            {...register("password")}
-                        />
-                        {errors.password && (
-                            <p className="text-sm text-red-500">
-                                {errors.password.message}
-                            </p>
-                        )}
+                        <Input placeholder="Senha" type="password" {...register("password")} />
+                        {errors.password && <p className="text-sm text-red-500">{String(errors.password?.message || "")}</p>}
                     </div>
                     <Button
                         type="submit"
                         className="w-full"
                         disabled={isSubmitting}
-                        style={{
-                            backgroundColor: theme?.primaryColor,
-                        }}
+                        style={{ backgroundColor: theme?.primaryColor }}
                     >
                         {isSubmitting ? "Entrando..." : "Entrar"}
                     </Button>

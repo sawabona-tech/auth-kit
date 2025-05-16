@@ -2,15 +2,22 @@
 
 Todos os registros de mudanças seguem o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/).
 
-## [0.1.3] - 2025-05-16
+## [0.1.4] - 2025-05-16
 
 ### Adicionado
 
-- Suporte a testes com Vitest e React Testing Library
-- Mock global de sessão via mockUseSession
-- UI e configuração inicial com AuthProvider, LoginPage e RegisterPage
-- Tipagem extensível (AuthKitConfig)
+- Suporte a schemas Zod customizados para login e cadastro via `config.validation`
+- Tipagem automática com `z.infer<typeof schema>` em `onSubmit`
+- Documentação de uso com exemplos no README
+- Estrutura de mensagens de erro seguras (`String(errors?.field?.message || "")`)
+- Sanitização básica com `.trim()` nos inputs por padrão
 
 ### Corrigido
 
-- Problemas de compatibilidade com ESM e Next.js App Router
+- Erros de tipagem relacionados ao uso de mensagens de erro do React Hook Form
+- Compatibilidade com ReactNode nos componentes de erro
+
+### Melhorias
+
+- Validações padrão mais seguras para senha (mín. 8, letras, número, símbolo)
+- Design extensível e agnóstico ao backend para regras de segurança

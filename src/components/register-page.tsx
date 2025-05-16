@@ -1,33 +1,39 @@
 "use client";
 
-
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuthKitConfig } from "./auth-provider";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
-const schema = z.object({
-    name: z.string().min(2, "Nome muito curto"),
+const defaultRegisterSchema = z.object({
+    name: z.string().min(2, "Nome obrigatório"),
     email: z.string().email("Email inválido"),
-    password: z.string().min(6, "Senha deve ter no mínimo 6 caracteres"),
+    password: z
+        .string()
+        .min(8, "Mínimo 8 caracteres")
+        .regex(/[A-Z]/, "1 letra maiúscula")
+        .regex(/[a-z]/, "1 letra minúscula")
+        .regex(/[0-9]/, "1 número")
+        .regex(/[^A-Za-z0-9]/, "1 caractere especial"),
 });
 
-type FormData = z.infer<typeof schema>;
-
 export function RegisterPage() {
-    const { baseUrl, theme, redirects } = useAuthKitConfig();
+    const { baseUrl, theme, redirects, validation } = useAuthKitConfig();
     const router = useRouter();
 
+    const schema = validation?.register ?? defaultRegisterSchema;
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<FormData>({ resolver: zodResolver(schema) });
+    } = useForm({
+        resolver: zodResolver(schema),
+    });
 
-    const onSubmit = async (data: FormData) => {
+    const onSubmit = async (data: z.infer<typeof schema>) => {
         const res = await fetch(`${baseUrl}/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -61,37 +67,23 @@ export function RegisterPage() {
                 <div className="space-y-4">
                     <div>
                         <Input placeholder="Nome" {...register("name")} />
-                        {errors.name && (
-                            <p className="text-sm text-red-500">{errors.name.message}</p>
-                        )}
+                        {errors.name && <p className="text-sm text-red-500">{String(errors.name?.message || "")}</p>}
                     </div>
                     <div>
                         <Input placeholder="Email" type="email" {...register("email")} />
-                        {errors.email && (
-                            <p className="text-sm text-red-500">{errors.email.message}</p>
-                        )}
+                        {errors.email && <p className="text-sm text-red-500">{String(errors.email?.message || "")}</p>}
                     </div>
                     <div>
-                        <Input
-                            placeholder="Senha"
-                            type="password"
-                            {...register("password")}
-                        />
-                        {errors.password && (
-                            <p className="text-sm text-red-500">
-                                {errors.password.message}
-                            </p>
-                        )}
+                        <Input placeholder="Senha" type="password" {...register("password")} />
+                        {errors.password && <p className="text-sm text-red-500">{String(errors.password?.message || "")}</p>}
                     </div>
                     <Button
                         type="submit"
                         className="w-full"
                         disabled={isSubmitting}
-                        style={{
-                            backgroundColor: theme?.primaryColor,
-                        }}
+                        style={{ backgroundColor: theme?.primaryColor }}
                     >
-                        {isSubmitting ? "Enviando..." : "Cadastrar"}
+                        {isSubmitting ? "Cadastrando..." : "Cadastrar"}
                     </Button>
                 </div>
             </form>
