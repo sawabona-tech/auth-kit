@@ -2,7 +2,7 @@
 
 Todos os registros de mudanças seguem o formato do [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/).
 
-## [0.1.4] - 2025-05-16
+## [0.1.8] - 2025-05-16
 
 ### Adicionado
 
@@ -21,3 +21,4 @@ Todos os registros de mudanças seguem o formato do [Keep a Changelog](https://k
 
 - Validações padrão mais seguras para senha (mín. 8, letras, número, símbolo)
 - Design extensível e agnóstico ao backend para regras de segurança
+
