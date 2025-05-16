@@ -1,12 +1,13 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuthKitConfig } from "./auth-provider";
+import { useForm } from "react-hook-form";
 
 const schema = z.object({
     name: z.string().min(2, "Nome muito curto"),

@@ -149,6 +149,58 @@ export interface AuthKitConfig {
 
 ---
 
+## ⚠️ Uso com App Router (Next.js 13+)
+
+Se você estiver usando `app/layout.tsx` com exportações como `viewport` ou `metadata`, **não marque o layout inteiro como `"use client"`**.
+
+### ✅ Como fazer corretamente:
+
+1. **Não use `"use client"` no `layout.tsx`**
+2. Envolva o `<AuthProvider>` dentro de um Client Component separado, por exemplo:
+
+```tsx
+// app/components/AppShell.tsx
+"use client";
+
+import { AuthProvider } from "@sawabona/auth-kit";
+import { Analytics } from "@vercel/analytics/react";
+
+export function AppShell({ children }) {
+  return (
+    <AuthProvider
+      config={
+        {
+          /* sua config */
+        }
+      }
+    >
+      {children}
+      <Analytics />
+    </AuthProvider>
+  );
+}
+```
+
+3. Use no `layout.tsx`:
+
+```tsx
+import { AppShell } from "@/components/AppShell";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <AppShell>{children}</AppShell>
+      </body>
+    </html>
+  );
+}
+```
+
+> ✅ Isso garante que `viewport` e `metadata` sejam avaliados no servidor corretamente, e que a UI de autenticação funcione 100% no cliente.
+
+---
+
 ## 🧪 Requisitos
 
 - Next.js 13+

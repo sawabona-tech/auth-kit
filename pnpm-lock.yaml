@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@hookform/resolvers':
-        specifier: ^5.0.1
+        specifier: ^5.0.0
         version: 5.0.1(react-hook-form@7.56.3(react@19.1.0))
       '@radix-ui/react-slot':
         specifier: ^1.2.2
@@ -36,7 +36,7 @@ importers:
         specifier: '>=18.0.0'
         version: 19.1.0(react@19.1.0)
       react-hook-form:
-        specifier: ^7.56.3
+        specifier: ^7.0.0
         version: 7.56.3(react@19.1.0)
       tailwind-merge:
         specifier: ^3.3.0
@@ -45,7 +45,7 @@ importers:
         specifier: ^1.2.9
         version: 1.2.9
       zod:
-        specifier: ^3.24.4
+        specifier: ^3.0.0
         version: 3.24.4
     devDependencies:
       '@types/react':
@@ -54,9 +54,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.0
         version: 10.4.21(postcss@8.5.3)
-      i:
-        specifier: ^0.3.7
-        version: 0.3.7
       postcss:
         specifier: ^8.4.0
         version: 8.5.3
@@ -787,10 +784,6 @@ packages:
   human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
-
-  i@0.3.7:
-    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
-    engines: {node: '>=0.4'}
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -1867,8 +1860,6 @@ snapshots:
       function-bind: 1.1.2
 
   human-signals@2.1.0: {}
-
-  i@0.3.7: {}
 
   ignore@5.3.2: {}
 
