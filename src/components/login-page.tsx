@@ -1,93 +1,53 @@
-"use client";
-
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginForm } from "@/hooks/use-login-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useAuthKitConfig } from "./auth-provider";
-import { useState } from "react";
-
-const defaultLoginSchema = z.object({
-    email: z.string().email("Email inválido"),
-    password: z.string().min(1, "Senha obrigatória"),
-});
+import { signIn } from "next-auth/react";
 
 export function LoginPage() {
-    const { redirects, theme, providers, validation } = useAuthKitConfig();
-    const router = useRouter();
-    const [authError, setAuthError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    onSubmit,
+    errors,
+    isSubmitting,
+    authError,
+    hasCredentials,
+    oauthProviders
+  } = useLoginForm();
 
-    const schema = validation?.login ?? defaultLoginSchema;
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm({ resolver: zodResolver(schema) });
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md space-y-4">
+        <h1 className="text-2xl font-bold text-center">Acesso</h1>
 
-    const onSubmit = async (data: z.infer<typeof schema>) => {
-        setAuthError("");
-        const res = await signIn("credentials", { redirect: false, ...data });
-        if (res?.ok) {
-            router.push(redirects?.afterLogin || "/dashboard");
-        } else {
-            setAuthError("Credenciais inválidas");
-        }
-    };
+        {authError && <p className="text-red-500 text-sm text-center">{authError}</p>}
 
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-muted px-4">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="max-w-md w-full space-y-6 p-8 bg-white shadow-xl rounded-xl border"
-            >
-                <div className="text-center space-y-1">
-                    <h1
-                        className="text-3xl font-display"
-                        style={{
-                            color: theme?.primaryColor,
-                            fontFamily: theme?.fontFamily,
-                        }}
-                    >
-                        Sawabona Tech
-                    </h1>
-                    <p className="text-muted-foreground">Acesse sua conta</p>
-                </div>
+        {hasCredentials && (
+          <>
+            <Input type="email" placeholder="Email" {...register("email")} />
+            <p className="text-sm text-red-500">{String(errors.email?.message || "")}</p>
 
-                {authError && <p className="text-sm text-red-500 text-center -mt-4">{authError}</p>}
+            <Input type="password" placeholder="Senha" {...register("password")} />
+            <p className="text-sm text-red-500">{String(errors.password?.message || "")}</p>
 
-                <div className="space-y-4">
-                    <div>
-                        <Input placeholder="Email" type="email" {...register("email")} />
-                        {errors.email && <p className="text-sm text-red-500">{String(errors.email?.message || "")}</p>}
-                    </div>
-                    <div>
-                        <Input placeholder="Senha" type="password" {...register("password")} />
-                        {errors.password && <p className="text-sm text-red-500">{String(errors.password?.message || "")}</p>}
-                    </div>
-                    <Button
-                        type="submit"
-                        className="w-full"
-                        disabled={isSubmitting}
-                        style={{ backgroundColor: theme?.primaryColor }}
-                    >
-                        {isSubmitting ? "Entrando..." : "Entrar"}
-                    </Button>
-                </div>
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Entrando..." : "Entrar"}
+            </Button>
+          </>
+        )}
 
-                {providers.includes("google") && (
-                    <Button
-                        type="button"
-                        variant="outline"
-                        className="w-full"
-                        onClick={() => signIn("google")}
-                    >
-                        Entrar com Google
-                    </Button>
-                )}
-            </form>
-        </div>
-    );
+        {oauthProviders.map((provider) => (
+          <Button
+            key={provider}
+            type="button"
+            variant="outline"
+            className="w-full"
+            onClick={() => signIn(provider)}
+          >
+            Entrar com {provider.charAt(0).toUpperCase() + provider.slice(1)}
+          </Button>
+        ))}
+      </form>
+    </div>
+  );
 }

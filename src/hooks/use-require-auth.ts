@@ -5,6 +5,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthKitConfig } from "@/components/auth-provider";
 
+/**
+ * Hook reactivo do pacote @sawabona/auth-kit
+ */
 export function useRequireAuth() {
   const { status } = useSession();
   const router = useRouter();

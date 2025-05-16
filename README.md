@@ -1,20 +1,20 @@
-# @sawabona/auth-kit
+# 🐘 @sawabona/auth-kit
 
-**Autenticação completa para aplicações React e Next.js, com UI integrada, validação forte e extensibilidade máxima.**  
-Criado pela [Sawabona Tech](https://sawabona.tech), este pacote oferece telas de login/cadastro, proteção de rotas e integração via NextAuth — tudo com tipagem segura, personalização visual e segurança de ponta.
+**Pacote de autenticação completo para aplicações React e Next.js**, criado pela [Sawabona Tech](https://sawabona.tech).
+
+Permite autenticação via **email/senha ou qualquer provider do NextAuth**, com layout customizável, tema visual via TweakCN, e integração desacoplada com qualquer backend.
 
 ---
 
-## ✨ Características
+## ✨ Destaques
 
-- 🔐 Suporte completo a autenticação com [NextAuth.js](https://next-auth.js.org)
-- 🎨 UI moderna com TailwindCSS + ShadCN
-- 💡 Configuração visual e funcional via `AuthProvider`
-- 🔐 Validação forte com Zod (ou personalizada via config)
-- 🔁 Registro e login desacoplados do backend (agnóstico)
-- 📦 Compatível com App Router e Pages Router
-- 🧠 Tipagem forte com TypeScript + Zod
-- 🧪 Testes com Vitest + Testing Library
+- 🔐 Login e Cadastro desacoplados com suporte a qualquer provider
+- 🎨 Variações de layout (`default`, `split-left`, `minimal`, etc.)
+- 💅 Personalização de tema via `themeTokens` (TweakCN)
+- ✅ Tipagem segura com `zod` + React Hook Form
+- 🔁 Fluxo completo com `signIn`, `signOut`, `useSession`, proteção de rotas
+- 🧱 Estrutura escalável com hooks reutilizáveis
+- 🧪 Testes automatizados com Vitest
 
 ---
 
@@ -22,122 +22,111 @@ Criado pela [Sawabona Tech](https://sawabona.tech), este pacote oferece telas de
 
 ```bash
 pnpm add @sawabona/auth-kit
-# ou
-npm install @sawabona/auth-kit
 ```
 
 ---
 
-## 🧱 Uso básico
-
-### 🌐 layout.tsx ou _app.tsx
+## 🧱 Exemplo completo de uso
 
 ```tsx
 import { AuthProvider } from "@sawabona/auth-kit";
 
 <AuthProvider
   config={{
+    baseUrl: "https://api.suaapi.com",
     providers: ["credentials", "google"],
-    baseUrl: "https://api.exemplo.com",
-    theme: {
-      primaryColor: "#716C4A",
-      fontFamily: "Yeseva One",
-      logoUrl: "/logo.svg",
-    },
     redirects: {
       afterLogin: "/dashboard",
       afterLogout: "/",
-    }
+    },
+    validation: {
+      register: z.object({
+        email: z.string().email(),
+        password: z.string().min(8),
+      }),
+    },
+    themeTokens: {
+      "--primary": "#716C4A",
+      "--font-sans": "Yeseva One, serif",
+    },
+    ui: {
+      variant: "split-left",
+    },
+    branding: {
+      logoUrl: "/logo.svg",
+      companyName: "Sawabona Tech",
+    },
   }}
 >
-  {children}
+  <App />
 </AuthProvider>
 ```
 
 ---
 
-### 🟢 Login
+## 📲 Login adaptativo
 
 ```tsx
 import { LoginPage } from "@sawabona/auth-kit";
 
-export default function Page() {
+export default function Login() {
   return <LoginPage />;
 }
 ```
 
+- Campos de email/senha só aparecem se `"credentials"` estiver incluído
+- Botões OAuth são gerados automaticamente com base nos `providers`
+
 ---
 
-### 🟡 Cadastro
+## 🟡 Cadastro adaptativo
 
 ```tsx
 import { RegisterPage } from "@sawabona/auth-kit";
 
-export default function Page() {
+export default function Register() {
   return <RegisterPage />;
 }
 ```
 
 ---
 
-### 🔐 Proteção de Rotas
+## 🧩 Proteção de rotas
 
 ```tsx
-import { useRequireAuth } from "@sawabona/auth-kit";
+const { isLoading } = useRequireAuth();
+```
 
-export default function Dashboard() {
-  const { isLoading } = useRequireAuth();
+---
 
-  if (isLoading) return <p>Carregando...</p>;
+## 🎨 Personalização visual com TweakCN
 
-  return <div>Área segura</div>;
+Cole o tema exportado direto do [tweakcn.com](https://tweakcn.com):
+
+```ts
+themeTokens: {
+  "--background": "#EFE9DB",
+  "--foreground": "#121212",
+  "--primary": "#716C4A",
+  "--radius": "0.5rem"
 }
 ```
 
 ---
 
-## ⚙️ Validação customizada (Zod)
-
-```tsx
-<AuthProvider
-  config={{
-    ...
-    validation: {
-      register: z.object({
-        name: z.string().min(2),
-        email: z.string().email(),
-        password: z.string().min(10).regex(/[A-Z]/).regex(/[0-9]/),
-      }),
-      login: z.object({
-        email: z.string().email(),
-        password: z.string().min(1),
-      }),
-    }
-  }}
->
-```
-
----
-
-## ⚠️ Uso com App Router
-
-Para que `viewport` e `metadata` funcionem no `layout.tsx`:
-
-1. Remova `"use client"` de `layout.tsx`
-2. Crie um componente client-only como `AppShell`
-3. Envolva nele o `AuthProvider`
-
----
-
-## 📁 Estrutura
+## 📁 Estrutura recomendada
 
 ```
 src/
 ├── components/
 │   ├── AuthProvider.tsx
 │   ├── LoginPage.tsx
-│   └── RegisterPage.tsx
+│   ├── RegisterPage.tsx
+│   └── variants/
 ├── hooks/
+│   ├── use-login-form.ts
+│   ├── use-register-form.ts
+│   ├── use-theme-tokens.ts
 │   └── use-require-auth.ts
 ├── config/
 │   └── default-config.ts
@@ -147,19 +136,13 @@ src/
 
 ## 📖 Documentação adicional
 
+- [📘 Documentação oficial](https://docs.sawabonatech.com)
 - [📜 CHANGELOG.md](./CHANGELOG.md)
 - [📄 LICENSE](./LICENSE)
 
 ---
 
-## 🙋‍♂️ Suporte e Contato
+## 🙋‍♂️ Suporte
 
-Criado com ❤️ pela [Sawabona Tech](https://sawabona.tech)  
-📧 christopher@sawabonatech.com
-
----
-
-## 📃 Licença
-
-Este projeto está licenciado sob os termos da [MIT License](./LICENSE).
-© 2025 Sawabona Tech
+📧 christopher@sawabonatech.com  
+🛠 Criado com 💚 pela [Sawabona Tech](https://sawabona.tech)

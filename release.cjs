@@ -9,7 +9,7 @@ try {
   execSync("pnpm build", { stdio: "inherit" });
 
   step("🔢 Incrementando versão (patch)...");
-  execSync("npm version patch", { stdio: "inherit" });
+  execSync("npm version minor", { stdio: "inherit" });
 
   step("📦 Publicando no NPM...");
   execSync("npm publish --access public", { stdio: "inherit" });
@@ -19,3 +19,4 @@ try {
   console.error("\x1b[31m❌ Erro durante o release:\x1b[0m", error);
   process.exit(1);
 }
+
