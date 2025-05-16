@@ -37,16 +37,16 @@ import { AuthProvider } from "@sawabona/auth-kit";
     theme: {
       primaryColor: "#716C4A",
       fontFamily: "Yeseva One",
-      logoUrl: "/logo.svg"
+      logoUrl: "/logo.svg",
     },
     redirects: {
       afterLogin: "/dashboard",
-      afterLogout: "/"
-    }
+      afterLogout: "/",
+    },
   }}
 >
   {children}
-</AuthProvider>
+</AuthProvider>;
 ```
 
 ---
@@ -164,7 +164,6 @@ A Sawabona é uma software house brasileira especializada em soluções digitais
 
 - 🌐 [sawabona.tech](https://sawabona.tech)
 - 📧 contato@sawabona.tech
-- 💼 Foco em projetos entre R$30k e R$150k
 
 ---
 
