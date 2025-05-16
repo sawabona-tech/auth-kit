@@ -1,6 +1,6 @@
 {
   "name": "@sawabona/auth-kit",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sawabona-tech/auth-kit.git"
@@ -18,7 +18,8 @@
     "dev": "tsup src/index.ts --watch --onSuccess \"echo Build atualizado\"",
     "build": "tsup",
     "typecheck": "tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "node release.cjs"
   },
   "peerDependencies": {
     "@hookform/resolvers": "^5.0.0",
@@ -34,8 +35,10 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
+    "@types/node": "^22.15.18",
     "@types/react": "^19.1.4",
     "autoprefixer": "^10.4.0",
+    "execa": "^9.5.3",
     "happy-dom": "^17.4.7",
     "jsdom": "^26.1.0",
     "postcss": "^8.4.0",
@@ -46,6 +49,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.2",
+    "child_process": "^1.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.510.0",
@@ -55,3 +59,4 @@
     "url": "^0.11.4"
   }
 }
+
