@@ -1,7 +1,9 @@
 import { renderHook } from "@testing-library/react";
-import { useRequireAuth } from "@/hooks/use-require-auth";
-import { mockUseSession } from "./utils/mockSession";
 import { vi } from "vitest";
+
+import { mockUseSession } from "./utils/mockSession";
+
+import { useRequireAuth } from "@/hooks/use-require-auth";
 
 const mockPush = vi.fn();
 vi.mock("next/navigation", () => ({

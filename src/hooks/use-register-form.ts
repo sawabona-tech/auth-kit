@@ -2,8 +2,9 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuthKitConfig } from "@/components/auth-provider";
 import { useState } from "react";
+
+import { useAuthKitConfig } from "@/components/auth-provider";
 
 const schema = z.object({
   name: z.string().min(2, "Nome obrigatório"),

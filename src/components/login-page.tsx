@@ -1,7 +1,8 @@
+import { signIn } from "next-auth/react";
+
 import { useLoginForm } from "@/hooks/use-login-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
 
 export function LoginPage() {
   const {

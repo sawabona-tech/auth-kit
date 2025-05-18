@@ -7,7 +7,9 @@
 
 import { SessionProvider } from "next-auth/react";
 import { ReactNode, createContext, useContext } from "react";
+
 import { AuthKitConfig, defaultConfig } from "../config/default-config";
+
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type Props = {
@@ -18,7 +20,7 @@ type Props = {
     /**
      * Configuração personalizada para sobrescrever o default
      */
-    config?: Partial<AuthKitConfig>;
+    config?: AuthKitConfig;
 };
 
 const AuthKitContext = createContext<AuthKitConfig>(defaultConfig);

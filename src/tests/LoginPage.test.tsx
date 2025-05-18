@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
+import { vi } from "vitest";
+
+import { mockUseSession } from "./utils/mockSession";
+
 import { LoginPage } from "@/components/login-page";
 import { AuthProvider } from "@/components/auth-provider";
-import { mockUseSession } from "./utils/mockSession";
-import { vi } from "vitest";
 
 const mockPush = vi.fn();
 

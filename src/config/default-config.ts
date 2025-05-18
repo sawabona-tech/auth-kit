@@ -70,12 +70,7 @@ export interface AuthKitConfig {
     /**
      * Variante do layout que será usada
      */
-    variant?:
-      | "default"
-      | "split-left"
-      | "split-right"
-      | "background-image"
-      | "minimal";
+    variant?: "default" | "split-left" | "split-right" | "background-image" | "minimal";
   };
 
   /**
@@ -103,4 +98,3 @@ export const defaultConfig: AuthKitConfig = {
     companyName: "Sawabona Tech",
   },
 };
-
