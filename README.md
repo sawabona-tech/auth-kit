@@ -136,7 +136,7 @@ src/
 
 ## 📖 Documentação adicional
 
-- [📘 Documentação oficial](https://docs.sawabonatech.com)
+- [📘 Documentação oficial](https://docs.sawabona.tech)
 - [📜 CHANGELOG.md](./CHANGELOG.md)
 - [📄 LICENSE](./LICENSE)
 
