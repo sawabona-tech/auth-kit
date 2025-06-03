@@ -27,4 +27,4 @@
     }
   }}
 >
-```
+```Também é possível usar as mesmas opções em um arquivo `sawabona-auth.config.js` na raiz do projeto.

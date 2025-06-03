@@ -24,6 +24,15 @@ Permite autenticação via **email/senha ou qualquer provider do NextAuth**, com
 pnpm add @sawabona/auth-kit
 ```
 
+Crie um arquivo `sawabona-auth.config.js` na raiz do projeto para personalizar
+as rotas e providers. Um exemplo básico pode ser gerado executando:
+
+```bash
+npx sawabona-auth-kit init
+# O comando gera `sawabona-auth.config.js` e cria
+# um template de API route `[...nextauth].ts` para Next.js.
+```
+
 ---
 
 ## 🧱 Exemplo completo de uso
@@ -77,6 +86,16 @@ export default function Login() {
 - Campos de email/senha só aparecem se `"credentials"` estiver incluído
 - Botões OAuth são gerados automaticamente com base nos `providers`
 
+### Apenas botões de login social
+
+```tsx
+import { SocialLoginButtons } from "@sawabona/auth-kit";
+
+export default function LoginButtons() {
+  return <SocialLoginButtons />;
+}
+```
+
 ---
 
 ## 🟡 Cadastro adaptativo
@@ -118,18 +137,18 @@ themeTokens: {
 
 ```
 src/
-├── components/
-│   ├── AuthProvider.tsx
-│   ├── LoginPage.tsx
-│   ├── RegisterPage.tsx
-│   └── variants/
-├── hooks/
-│   ├── use-login-form.ts
-│   ├── use-register-form.ts
-│   ├── use-theme-tokens.ts
-│   └── use-require-auth.ts
-├── config/
-│   └── default-config.ts
+├── core/
+│   ├── auth-provider.tsx
+│   ├── config/
+│   └── hooks/
+├── ui/
+│   ├── login-page.tsx
+│   ├── register-page.tsx
+│   ├── social-login-buttons.tsx
+│   ├── login/
+│   └── register/
+├── lib/
+│   └── utils.ts
 ```
 
 ---

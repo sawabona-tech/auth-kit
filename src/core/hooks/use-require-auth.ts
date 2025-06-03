@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { useAuthKitConfig } from "@/components/auth-provider";
+import { useAuthKitConfig } from "@/core/auth-provider";
 
 /**
  * Hook reactivo do pacote @sawabona/auth-kit

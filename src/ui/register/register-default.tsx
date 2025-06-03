@@ -1,8 +1,8 @@
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useRegisterForm } from "@/hooks/use-register-form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import { useRegisterForm } from "@/core/hooks/use-register-form";
 
-export function RegisterSplitRight() {
+export function RegisterDefault() {
   const {
     register,
     handleSubmit,
@@ -15,7 +15,7 @@ export function RegisterSplitRight() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted px-4">
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-md w-full space-y-6 p-8 bg-white shadow-xl rounded-xl border">
-        <h1 className="text-2xl font-bold text-center">Cadastro com imagem à direita</h1>
+        <h1 className="text-2xl font-bold text-center">Criar Conta</h1>
 
         {authError && <p className="text-sm text-red-500">{authError}</p>}
 

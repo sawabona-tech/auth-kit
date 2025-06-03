@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 
-import { useAuthKitConfig } from "@/components/auth-provider";
+import { useAuthKitConfig } from "@/core/auth-provider";
 
 const schema = z.object({
   name: z.string().min(2, "Nome obrigatório"),

@@ -1,9 +1,9 @@
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useLoginForm } from "@/hooks/use-login-form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import { useLoginForm } from "@/core/hooks/use-login-form";
 
 
-export function LoginSplitLeft() {
+export function LoginDefault() {
   const {
     register,
     handleSubmit,
@@ -16,7 +16,7 @@ export function LoginSplitLeft() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md p-8 space-y-6 shadow-md rounded-xl bg-white border">
-        <h1 className="text-2xl font-bold text-center">Login com Imagem à Esquerda</h1>
+        <h1 className="text-2xl font-bold text-center">Acesso</h1>
         {authError && <p className="text-sm text-red-500">{authError}</p>}
         <div>
           <Input type="email" placeholder="Email" {...register("email")} />

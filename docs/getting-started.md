@@ -6,6 +6,15 @@
 pnpm add @sawabona/auth-kit
 ```
 
+Gere um arquivo `sawabona-auth.config.js` com:
+
+```bash
+npx sawabona-auth-kit init
+```
+
+O script também cria um template de API route `[...nextauth].ts`
+caso esteja utilizando Next.js.
+
 ## Pré-requisitos
 
 - React 18+
