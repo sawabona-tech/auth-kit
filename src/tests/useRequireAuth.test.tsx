@@ -3,7 +3,7 @@ import { vi } from "vitest";
 
 import { mockUseSession } from "./utils/mockSession";
 
-import { useRequireAuth } from "@/hooks/use-require-auth";
+import { useRequireAuth } from "@/core/hooks/use-require-auth";
 
 const mockPush = vi.fn();
 vi.mock("next/navigation", () => ({

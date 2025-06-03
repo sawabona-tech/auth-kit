@@ -1,6 +1,6 @@
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useLoginForm } from "@/hooks/use-login-form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import { useLoginForm } from "@/core/hooks/use-login-form";
 
 
 export function LoginWithImage() {

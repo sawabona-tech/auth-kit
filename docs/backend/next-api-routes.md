@@ -1,5 +1,8 @@
 # 🧩 API Routes (Next.js)
 
+O comando `npx sawabona-auth-kit init` já cria um template
+`[...nextauth].ts` para facilitar a configuração do NextAuth.
+
 ## Exemplo: Registro
 
 ```ts

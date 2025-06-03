@@ -23,6 +23,9 @@
     "lint": "eslint .",
     "format": "prettier --write ."
   },
+  "bin": {
+    "sawabona-auth-kit": "./bin/sawabona-auth-kit.js"
+  },
   "peerDependencies": {
     "@hookform/resolvers": "^5.0.0",
     "next": ">=13.0.0",

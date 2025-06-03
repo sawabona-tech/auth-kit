@@ -1,6 +1,6 @@
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useRegisterForm } from "@/hooks/use-register-form";
+import { Input } from "@/ui/input";
+import { Button } from "@/ui/button";
+import { useRegisterForm } from "@/core/hooks/use-register-form";
 
 export function RegisterSplitLeft() {
   const {

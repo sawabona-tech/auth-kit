@@ -3,8 +3,8 @@ import { vi } from "vitest";
 
 import { mockUseSession } from "./utils/mockSession";
 
-import { LoginPage } from "@/components/login-page";
-import { AuthProvider } from "@/components/auth-provider";
+import { LoginPage } from "@/ui/login-page";
+import { AuthProvider } from "@/core/auth-provider";
 
 const mockPush = vi.fn();
 

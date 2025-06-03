@@ -4,7 +4,7 @@ Use `Vitest` com `@testing-library/react`.
 
 ```ts
 import { render, screen } from "@testing-library/react";
-import { LoginPage } from "@/components/LoginPage";
+import { LoginPage } from "@/ui/login-page";
 
 test("renderiza input de email", () => {
   render(<LoginPage />);

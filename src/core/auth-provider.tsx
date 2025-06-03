@@ -8,9 +8,10 @@
 import { SessionProvider } from "next-auth/react";
 import { ReactNode, createContext, useContext } from "react";
 
-import { AuthKitConfig, defaultConfig } from "../config/default-config";
+import { AuthKitConfig, defaultConfig } from "./config/default-config";
+import { loadAuthKitConfig } from "./config/load-config";
 
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useThemeTokens } from "@/core/hooks/use-theme-tokens";
 
 type Props = {
     /**
@@ -29,18 +30,19 @@ const AuthKitContext = createContext<AuthKitConfig>(defaultConfig);
  * Provedor global de autenticação e estilo do AuthKit
  */
 export function AuthProvider({ children, config }: Props) {
-    useThemeTokens(config?.themeTokens);
+    const loadedConfig = config ?? loadAuthKitConfig();
+    useThemeTokens(loadedConfig.themeTokens);
 
     const mergedConfig: AuthKitConfig = {
         ...defaultConfig,
-        ...config,
+        ...loadedConfig,
         theme: {
             ...defaultConfig.theme,
-            ...config?.theme,
+            ...loadedConfig.theme,
         },
         redirects: {
             ...defaultConfig.redirects,
-            ...config?.redirects,
+            ...loadedConfig.redirects,
         },
     };
 
